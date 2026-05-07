@@ -28,44 +28,6 @@ openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:4096
 openssl rsa -pubout -in private.key -out public.key 
 
 # create a file named .env on the root folder
-# add the following data to it. 
-
-###
-
-  # URLS
-  # DB VAARIABLES
-  MAXIDLE_TIMES=270000
-  DB_POOL_SIZE=100
-  DB_NAME="StudentEcommerce"
-  DB_URL=mongodb+srv://anciemtutors:a5eZU0eCVpWP9yAX@anciem.rp74bds.mongodb.net/test?retryWrites=true&w=majority
-  SITE_URL=http://localhost:3000
-
-  # SALT
-  SALT=10
-
-  # PORT
-  PORT=8094
-
-  issuer="student-ecommerce api"
-
-  #aws 
-  aws_bucket=anciem
-  aws_access_key=AKIAQ2IBIUTXTR52KSNG
-  aws_secret_access_key=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
-  aws_region="eu-north-1"
-  aws_route="student-ecommerce/"
-
-  #stripe 
-  STRIPE_PUBLIC_KEY="pk_test_51TSYEUGkZD8lzq0XfggkE2PsEHx9Q5oTZR0f8gf5WoLFoKCegZh72mCZYfHM2TulVWmG76dfn8Mz1ZR182SyGCBN00lh0ZVTS1"
-  STRIPE_SECRET_KEY="sk_test_51TSYEUGkZD8lzq0X3pTkLSeZvh3sDxMo6B89EACFw0VFgfqo1KtslWK1mY8RQ9znlSfEwlWwEufEDrl8zzJjuMzU00b9XHmdB4"
-
-  #mailgun 
-  MAILGUN_API_KEY="206ba295084a25abd067a7e7c7a089ce-4293193c-f7bd1fd8"
-  MAILGUN_URL="student-e-commerce.handivice.com"
-  MAILGUN_EU="https://api.eu.mailgun.net"
-  MAILGUN_FROM_EMAIL=akinpeludavid346@gmail.com
-
-###
 
 # then, on the terminal, 
 # enter
