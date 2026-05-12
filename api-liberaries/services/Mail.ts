@@ -49,10 +49,10 @@ class MailService {
 
       const mail_template = handlebars.compile(get_mail_template);
       const mail_to_send = mail_template({ payload });
-      const sender_email = !empty(payload.sender_email)
-        ? payload.sender_email
-        : process.env.MAILGUN_FROM_EMAIL;
-      const sender_email_template = `Student E-commerce <${sender_email}>`;
+      // const sender_email = !empty(payload.sender_email)
+      //   ? payload.sender_email
+      //   : process.env.MAILGUN_FROM_EMAIL;
+      const sender_email_template = `Student E-commerce <info@student-e-commerce.handivice.com>`;
 
       const mail_message: MailgunMessageData = {
         from: sender_email_template,
