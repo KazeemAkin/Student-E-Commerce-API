@@ -257,11 +257,11 @@ class ProductService {
       if (isDbObjectValid(get_user)) {
         product_details.seller_details = {
           dorm: get_user?.dorm || '',
-          first_name: get_user?.first_name || 'N/A',
-          last_name: get_user?.last_name || 'N/A',
-          username: get_user?.username || 'N/A',
-          id: get_user?._id || 'N/A',
-          avatar: get_user?.avatar || 'N/A'
+          first_name: get_user?.first_name || '',
+          last_name: get_user?.last_name || '',
+          username: get_user?.username || '',
+          id: get_user?._id || '',
+          avatar: get_user?.avatar || ''
         }
       }
 
