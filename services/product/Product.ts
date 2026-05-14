@@ -9,6 +9,7 @@ import {
   empty,
   isArray,
   isDbObjectValid,
+  reIndex,
   sanitizeAndValidateRequest,
 } from "../../api-liberaries/utilities/utils";
 import ProductsModel from "../../models/Products";
@@ -186,6 +187,30 @@ class ProductService {
         return BaseExceptions.notFound("Failed to fetch products.");
       }
 
+      const seller_ids: Array<string> = [];
+      products.forEach(product => {
+        if (product?.seller_id) {
+          seller_ids.push(product.seller_id);
+        }
+      })
+      // get seller details 
+      const userModel = new UsersModel();
+      const get_users: Array<DynamicObjectType> = await userModel.getAllRows({ _id: { $in: seller_ids } });
+      const reIndexed_users = isArray(get_users) ? reIndex(get_users, '_id') : {};
+      products.forEach(product => {
+        if (product?.seller_id && reIndexed_users[product.seller_id]) {
+          const user = reIndexed_users[product.seller_id]; 
+          product.seller_details = {
+            first_name: user?.first_name || '',
+            last_name: user?.last_name || '',
+            username: user?.username || '',
+            id: user?._id || '',
+            avatar: user?.avatar || ''
+          }
+        }
+      })
+
+
       return SuccessResponse.jsonResponse({ products })
     } catch (error) {
       console.error(error);
@@ -230,8 +255,13 @@ class ProductService {
       const userModel = new UsersModel();
       const get_user: DynamicObjectType = await userModel.getRowByField({ _id: product_details?.seller_id });
       if (isDbObjectValid(get_user)) {
-        product_details.user_details = {
-          dorm: get_user?.dorm || ''
+        product_details.seller_details = {
+          dorm: get_user?.dorm || '',
+          first_name: get_user?.first_name || 'N/A',
+          last_name: get_user?.last_name || 'N/A',
+          username: get_user?.username || 'N/A',
+          id: get_user?._id || 'N/A',
+          avatar: get_user?.avatar || 'N/A'
         }
       }
 

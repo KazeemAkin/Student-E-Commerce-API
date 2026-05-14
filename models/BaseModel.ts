@@ -173,12 +173,16 @@ class BaseModel {
   }
 
   /**
-   * Get one single record
-   * @param {*} operation
-   * @returns
+   * Get multiple records
+   * @param conditions 
+   * @param sort 
+   * @param limit 
+   * @param skip 
+   * @param projection 
+   * @returns 
    */
   async getAllRows(
-    operation: DynamicObjectType = {},
+    conditions: DynamicObjectType = {},
     sort: DynamicObjectType  = {},
     limit: number | string = 0,
     skip: number = 0,
@@ -193,7 +197,7 @@ class BaseModel {
       const limitValue: number = parseInt(String(limit), 10) || 10000;
       const result = await this._db
         .collection(this.collection_name)
-        .find(operation)
+        .find(conditions)
         .project(projection)
         .skip(skip)
         .sort(sort)
@@ -211,10 +215,10 @@ class BaseModel {
 
   /**
    *
-   * @param {*} operation
+   * @param {*} conditions
    * @returns
    */
-  async getCount(operation: DynamicObjectType = {}) {
+  async getCount(conditions: DynamicObjectType = {}) {
     try {
       if (!this._db) {
         this.checkAndSwitchDB();
@@ -222,7 +226,7 @@ class BaseModel {
 
       const result = await this._db
         ?.collection(this.collection_name)
-        .countDocuments(operation);
+        .countDocuments(conditions);
       if (!result) {
         return false;
       }
